@@ -93,9 +93,9 @@ CREATE TABLE `mercados` (
 --
 
 INSERT INTO `mercados` (`id`, `endereco`, `nome`) VALUES
-(1, 'Rua A, 123', ''),
-(2, 'Av. Brasil, 456', ''),
-(3, 'Travessa das Flores, 789', '');
+(1, 'Rua A, 123', 'Supermercado Econômico'),
+(2, 'Av. Brasil, 456', 'Mercado Central'),
+(3, 'Travessa das Flores, 789', 'Mini Mercado Flor');
 
 -- --------------------------------------------------------
 
@@ -165,16 +165,16 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `categoria`, `tipo`) VALUES
-(1, '', '', NULL),
-(2, '', '', NULL),
-(3, '', '', NULL),
-(4, '', '', NULL),
-(5, '', '', NULL),
-(6, '', '', NULL),
-(7, '', '', NULL),
-(8, '', '', NULL),
-(9, '', '', NULL),
-(10, '', '', NULL);
+(1, 'Arroz Integral 1kg', 'Alimentos Básicos', NULL),
+(2, 'Feijão Carioca 1kg', 'Alimentos Básicos', NULL),
+(3, 'Açúcar Cristal 1kg', 'Alimentos Básicos', NULL),
+(4, 'Café Torrado 500g', 'Bebidas', NULL),
+(5, 'Óleo de Soja 900ml', 'Alimentos Básicos', NULL),
+(6, 'Sal Refinado 1kg', 'Alimentos Básicos', NULL),
+(7, 'Leite Integral 1L', 'Laticínios', NULL),
+(8, 'Macarrão Espaguete 500g', 'Massas', NULL),
+(9, 'Farinha de Trigo 1kg', 'Farináceos', NULL),
+(10, 'Molho de Tomate 340g', 'Enlatados', NULL);
 
 -- --------------------------------------------------------
 
