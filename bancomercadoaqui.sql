@@ -93,9 +93,9 @@ CREATE TABLE `mercados` (
 --
 
 INSERT INTO `mercados` (`id`, `endereco`, `nome`) VALUES
-(1, 'Rua A, 123', ''),
-(2, 'Av. Brasil, 456', ''),
-(3, 'Travessa das Flores, 789', '');
+(1, 'Rua A, 123', 'Supermercado Economia'),
+(2, 'Av. Brasil, 456', 'Mercado Brasil'),
+(3, 'Travessa das Flores, 789', 'Minimercado Flor');
 
 -- --------------------------------------------------------
 
