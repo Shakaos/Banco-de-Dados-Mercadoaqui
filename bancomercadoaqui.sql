@@ -188,15 +188,22 @@ CREATE TABLE `usuarios` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `tipo` varchar(255) NOT NULL DEFAULT 'cliente',
-  `criado_em` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+  `criado_em` datetime(6) NOT NULL DEFAULT current_timestamp(6),
+  `primeiro_acesso` tinyint(1) NOT NULL DEFAULT 0,
+  `config_inicial_completa` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `usuarios`
+-- Estrutura para tabela `configuracao_sistema`
 --
 
-INSERT INTO `usuarios` (`id`, `senha`, `nome`, `email`, `tipo`, `criado_em`) VALUES
-(1, '$2b$10$E6.UYoEamNlAfYNHY.VNzOBdhj2lZt3GJqX.UcJTdHTR8q5/y8yba', 'admin', 'admin@gmail.com', 'cliente', '2025-06-03 16:10:27.725814');
+CREATE TABLE `configuracao_sistema` (
+  `id` int(11) NOT NULL,
+  `chave` varchar(50) NOT NULL,
+  `valor` varchar(255) NOT NULL,
+  `descricao` varchar(255) DEFAULT NULL,
+  `atualizado_em` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tabelas despejadas
@@ -262,6 +269,13 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `IDX_446adfc18b35418aac32ae0b7b` (`email`);
 
 --
+-- Índices de tabela `configuracao_sistema`
+--
+ALTER TABLE `configuracao_sistema`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_chave` (`chave`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -314,6 +328,12 @@ ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `configuracao_sistema`
+--
+ALTER TABLE `configuracao_sistema`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
 -- Restrições para tabelas despejadas
 --
 
@@ -351,6 +371,19 @@ ALTER TABLE `listas`
 ALTER TABLE `precos`
   ADD CONSTRAINT `FK_f08eb80c2ad16291399c0a403c2` FOREIGN KEY (`mercado_id`) REFERENCES `mercados` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_fbd4ae89cf3b2897eba7f13261e` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Insert into configuracao_sistema for initial setup flag
+--
+INSERT INTO `configuracao_sistema` (`chave`, `valor`, `descricao`) VALUES
+('configuracao_inicial_completa', '0', 'Flag indicando se a configuração inicial do sistema foi concluída');
+
+--
+-- Insert admin user with temp credentials that require initial setup
+--
+INSERT INTO `usuarios` (`id`, `senha`, `nome`, `email`, `tipo`, `criado_em`, `primeiro_acesso`, `config_inicial_completa`) VALUES
+(1, '$2b$10$E6.UYoEamNlAfYNHY.VNzOBdhj2lZt3GJqX.UcJTdHTR8q5/y8yba', 'Administrador Temporário', 'setup@mercadoaqui.temp', 'admin', '2025-06-03 16:10:27.725814', 1, 0);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
